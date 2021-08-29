@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.widget.RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@drawable/background">
+
+    <!-- Action Bar -->
+    <RelativeLayout
+        android:id="@+id/home_action_bar"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="9dp"
+            android:src="@drawable/ic_baseline_home_24" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/amaranth"
+            android:text="@string/app_name"
+            android:textColor="@color/white"
+            android:textSize="24dp" />
+
+        <ImageView
+            android:id="@+id/logo_out"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_help_outline_24"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="9dp"/>
+    </RelativeLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/movie_name_input_layout"
+        android:layout_below="@id/home_action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="23dp"
+        android:layout_marginLeft="23dp"
+        android:hint="Movie / TV Show"
+        android:textColorHint="@color/white"
+        app:boxStrokeColor="@color/white"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:endIconDrawable="@drawable/ic_baseline_clear_24"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/white">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/movie_name_to_find"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textCapSentences"
+            android:textColor="@color/white"
+            android:fontFamily="@font/amaranth"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/find_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/movie_name_input_layout"
+        android:layout_marginLeft="23dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="23dp"
+        android:fontFamily="@font/amaranth"
+        android:text="Let's Find It"
+        android:textColor="@color/navy_blue_v1"
+        app:icon="@drawable/ic_baseline_search_24"
+        app:iconGravity="textStart"
+        app:iconTint="@color/navy_blue_v1" />
+
+    <TextView
+        android:id="@+id/text_similar_movies"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/find_button"
+        android:layout_marginTop="32dp"
+        android:text="Similar Movies / TV Shows:"
+        android:textColor="@color/white"
+        android:fontFamily="@font/amaranth"
+        android:textSize="18dp"
+        android:layout_marginLeft="23dp"/>
+
+    <TextView
+        android:id="@+id/quote_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/text_similar_movies"
+        android:layout_marginTop="100dp"
+        android:alpha=".9"
+        android:fontFamily="@font/amaranth"
+        android:text=' "find what your searching for" '
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        android:textStyle="italic" />
+
+
+    <ListView
+        android:id="@+id/movie_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_similar_movies"
+        android:layout_marginLeft="23dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="23dp"
+        android:divider="#7DFFFFFF"
+        android:dividerHeight="1dp" />
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/loading_view"
+        style="@style/SpinKitView.FoldingCube"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="32dp"
+        app:SpinKit_Color="@color/white"
+        android:alpha=".9"
+        android:visibility="invisible"/>
+
+</android.widget.RelativeLayout>
