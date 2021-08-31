@@ -5,13 +5,21 @@ import java.util.List;
 class Info1 {
     public String Name;
     public String Type;
+    public String wTeaser;
+    public String wUrl;
+    public String yUrl;
+    public String yID;
 
     public Info1() {
     }
 
-    public Info1(String Name, String Type) {
-        this.Name = Name;
-        this.Type = Type;
+    public Info1(String name, String type, String wTeaser, String wUrl, String yUrl, String yID) {
+        Name = name;
+        Type = type;
+        this.wTeaser = wTeaser;
+        this.wUrl = wUrl;
+        this.yUrl = yUrl;
+        this.yID = yID;
     }
 }
 
@@ -31,13 +39,21 @@ class Similar1{
 class Result1 {
     public String Name;
     public String Type;
+    public String wTeaser;
+    public String wUrl;
+    public String yUrl;
+    public String yID;
 
     public Result1() {
     }
 
-    public Result1(String Name, String Type) {
-        this.Name = Name;
-        this.Type = Type;
+    public Result1(String name, String type, String wTeaser, String wUrl, String yUrl, String yID) {
+        Name = name;
+        Type = type;
+        this.wTeaser = wTeaser;
+        this.wUrl = wUrl;
+        this.yUrl = yUrl;
+        this.yID = yID;
     }
 }
 

@@ -11,5 +11,5 @@ import retrofit2.http.Query;
 public interface TasteDiveAPI {
 
     @GET("api/similar")
-    Call<TasteDiveResponse> getMovies(@Query("q") String apiKey, @Query("limit") String movieName, @Query("k") String type);
+    Call<TasteDiveResponse> getMovies(@Query("q") String apiKey, @Query("limit") String movieName, @Query("info") String info, @Query("k") String type);
 }

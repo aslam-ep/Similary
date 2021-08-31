@@ -30,6 +30,7 @@ public class OmdbResponse {
      String Production;
      String Website;
      String Response;
+     String Trailer;
 
     public OmdbResponse() {
     }

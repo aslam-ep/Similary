@@ -1,13 +1,17 @@
 package com.aslamep.similary;
 
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.database.DataSetObserver;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
@@ -90,6 +94,7 @@ public class AdapterMovieList implements ListAdapter {
 
                     ImageView poster;
                     TextView title, year, runTime, imdbRating, tomatoRating, plot, closeButton, genre;
+                    Button trailerButton;
 
                     // Mapping
                     poster = moviePopup.findViewById(R.id.poster);
@@ -101,6 +106,7 @@ public class AdapterMovieList implements ListAdapter {
                     plot = moviePopup.findViewById(R.id.plot);
                     genre = moviePopup.findViewById(R.id.genre);
                     closeButton = moviePopup.findViewById(R.id.close_button);
+                    trailerButton = moviePopup.findViewById(R.id.trailer_button);
 
                     // Assigning
                     Glide.with(context)
@@ -117,10 +123,15 @@ public class AdapterMovieList implements ListAdapter {
                     genre.setText(popMovie.Genre);
                     imdbRating.setText(popMovie.imdbRating);
 
-                    String rottenRating = "";
+                    if (popMovie.Trailer.isEmpty()){
+                        trailerButton.setEnabled(false);
+                    }
+
+                    String rottenRating = "N/A";
                     for (int i=0; i < popMovie.Ratings.size(); i++){
-                        if (popMovie.Ratings.get(i).Source.equalsIgnoreCase("Rotten Tomatoes"))
+                        if (popMovie.Ratings.get(i).Source.equalsIgnoreCase("Rotten Tomatoes")) {
                             rottenRating = popMovie.Ratings.get(i).Value;
+                        }
                     }
                     tomatoRating.setText(rottenRating);
                     plot.setText(popMovie.Plot);
@@ -129,6 +140,13 @@ public class AdapterMovieList implements ListAdapter {
                         @Override
                         public void onClick(View v) {
                             moviePopup.dismiss();
+                        }
+                    });
+
+                    trailerButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            watchYoutubeVideo(context, popMovie.Trailer);
                         }
                     });
 
@@ -169,5 +187,16 @@ public class AdapterMovieList implements ListAdapter {
     @Override
     public boolean isEmpty() {
         return false;
+    }
+
+    public static void watchYoutubeVideo(Context context, String id){
+        Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + id));
+        Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                Uri.parse("http://www.youtube.com/watch?v=" + id));
+        try {
+            context.startActivity(appIntent);
+        } catch (ActivityNotFoundException ex) {
+            context.startActivity(webIntent);
+        }
     }
 }

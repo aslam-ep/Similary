@@ -104,7 +104,7 @@
         android:layout_marginTop="100dp"
         android:alpha=".9"
         android:fontFamily="@font/amaranth"
-        android:text=' "find what your searching for" '
+        android:text=' "find what you are searching for" '
         android:textColor="@color/white"
         android:textSize="16dp"
         android:textStyle="italic" />

@@ -32,7 +32,7 @@
             android:id="@+id/poster_card_view"
             android:layout_width="150dp"
             android:layout_height="200dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="40dp"
             android:layout_centerHorizontal="true"
             app:cardCornerRadius="10dp">
             <ImageView
@@ -130,7 +130,7 @@
                 android:id="@+id/imdb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="7.0"
+                android:text="N/A"
                 android:textColor="@color/white"
                 android:fontFamily="@font/amaranth"
                 android:textSize="16dp"
@@ -183,8 +183,26 @@
             android:layout_marginLeft="27dp"
             android:layout_marginRight="27dp"
             android:textAlignment="center"
-            android:text="As Scott Lang balances being both a superhero and a father, Hope van Dyne and Dr. Hank Pym present an urgent new mission that finds the Ant-Man fighting alongside The Wasp to uncover secrets from their past."
-            android:layout_marginBottom="50dp"/>
+            android:text="As Scott Lang balances being both a superhero and a father, Hope van Dyne and Dr. Hank Pym present an urgent new mission that finds the Ant-Man fighting alongside The Wasp to uncover secrets from their past." />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/trailer_button"
+            android:layout_width="150dp"
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/amaranth"
+            android:text="Trailer"
+            app:iconGravity="textStart"
+            app:iconTint="@null"
+            android:layout_below="@id/plot"
+            android:layout_marginBottom="40dp"
+            app:icon="@drawable/youtube"
+            app:iconSize="24dp"
+            app:rippleColor="@color/navy_blue_v1"
+            app:cornerRadius="20dp"
+            app:backgroundTint="@color/white"
+            android:textColor="@color/navy_blue_v1"/>
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

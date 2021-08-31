@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                     movieDetails.clear();
                     similarMovieList.deferNotifyDataSetChanged();
 
-                    Call<TasteDiveResponse> call = tasteDiveAPI.getMovies(movie, "10", TASTE_DIVE_API);
+                    Call<TasteDiveResponse> call = tasteDiveAPI.getMovies(movie, "10","1", TASTE_DIVE_API);
                     call.enqueue(new Callback<TasteDiveResponse>() {
                         @Override
                         public void onResponse(Call<TasteDiveResponse> call, Response<TasteDiveResponse> response) {
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                                     relatedMovies[i] = (response.body().Similar.Results).get(i).Name;
                                     Log.d("Movie", relatedMovies[i]);
                                     // From here we are calling omdb to get the ratings then sort the data
-                                    getTheMovieDetails(relatedMovies[i], i, lenArr);
+                                    getTheMovieDetails(relatedMovies[i], (response.body().Similar.Results).get(i).yID, i, lenArr);
                                 }
                             }
 
@@ -132,12 +132,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void getTheMovieDetails(String relatedMovie, int i, int lenArr) {
+    private void getTheMovieDetails(String relatedMovie, String trailer, int i, int lenArr) {
         Call<OmdbResponse> call = omdbAPI.getMovies(OMDB_API_KEY,relatedMovie,"json");
         call.enqueue(new Callback<OmdbResponse>() {
             @Override
             public void onResponse(Call<OmdbResponse> call, Response<OmdbResponse> response) {
-                movieDetails.add(response.body());
+                OmdbResponse movie = response.body();
+                movie.Title = relatedMovie;
+                movie.Trailer = trailer;
+
+                movieDetails.add(movie);
 
                 // Checking that all movies details are collected
                 if(movieDetails.size() == lenArr){
@@ -147,13 +151,6 @@ public class MainActivity extends AppCompatActivity {
                         Collections.sort(movieDetails, OmdbResponse.RatingComparator);
                     } catch (Exception ex){
 
-                    }
-
-                    // String the sorted movie title to relatedMovies array for listView
-                    String[] similarMovies = new String[lenArr];
-
-                    for (int i=0; i < lenArr; i++){
-                        similarMovies[i] = ((movieDetails.get(i)).Title);
                     }
 
                     // Creating array adapter for listView the related movies
