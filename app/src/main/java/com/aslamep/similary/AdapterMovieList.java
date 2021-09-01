@@ -123,7 +123,7 @@ public class AdapterMovieList implements ListAdapter {
                     genre.setText(popMovie.Genre);
                     imdbRating.setText(popMovie.imdbRating);
 
-                    if (popMovie.Trailer.isEmpty()){
+                    if (popMovie.Trailer == null){
                         trailerButton.setEnabled(false);
                     }
 

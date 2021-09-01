@@ -15,6 +15,7 @@ import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -38,6 +39,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,17 +47,23 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
+    /* To Do
+    * Add option for selecting type
+    * Create help page*/
+
     TextInputEditText movieName;
+    AutoCompleteTextView typesMenu;
     Button findMovies;
     ListView similarMovieList;
     ProgressBar loadingView;
-    TextView quoteText;
+    TextView quoteText, similarText;
 
     TasteDiveAPI tasteDiveAPI;
     OmdbAPI omdbAPI;
 
     String TASTE_DIVE_API = "383937-MovieFin-7XRETLZZ";
     String OMDB_API_KEY = "f2c0d5ef";
+    String [] types = {"Movies", "Shows"};
 
     // Result variable
     String [] relatedMovies;
@@ -75,16 +83,22 @@ public class MainActivity extends AppCompatActivity {
         movieDetails = new ArrayList<>();
         moviePopup = new Dialog(MainActivity.this);
 
+        typesMenu.setAdapter(new ArrayAdapter<String>(this, R.layout.list_item, types));
+        typesMenu.setText(typesMenu.getAdapter().getItem(0).toString(), false);
+
         findMovies.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String movie = movieName.getText().toString();
+                String typeOfSearch = typesMenu.getText().toString();
                 if(movie.isEmpty()){
                     movieName.setError("Name required");
                 } else{
+                    similarText.setText("Similar " + typeOfSearch + ": ");
                     hideKeyboard(MainActivity.this);
 
                     similarMovieList.setVisibility(View.INVISIBLE);
+                    similarText.setVisibility(View.INVISIBLE);
                     quoteText.setVisibility(View.INVISIBLE);
                     loadingView.setVisibility(View.VISIBLE);
                     findMovies.setEnabled(false);
@@ -92,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                     movieDetails.clear();
                     similarMovieList.deferNotifyDataSetChanged();
 
-                    Call<TasteDiveResponse> call = tasteDiveAPI.getMovies(movie, "10","1", TASTE_DIVE_API);
+                    Call<TasteDiveResponse> call = tasteDiveAPI.getMovies(movie, "10", typeOfSearch.toLowerCase(),"1", TASTE_DIVE_API);
                     call.enqueue(new Callback<TasteDiveResponse>() {
                         @Override
                         public void onResponse(Call<TasteDiveResponse> call, Response<TasteDiveResponse> response) {
@@ -103,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                                 loadingView.setVisibility(View.INVISIBLE);
                                 findMovies.setEnabled(true);
 
-                                Snackbar.make(findViewById(android.R.id.content), "Can't Find Movie / TV Show!", Snackbar.LENGTH_SHORT).show();
+                                Snackbar.make(findViewById(android.R.id.content), "Can't find the "+ typeOfSearch + "!", Snackbar.LENGTH_SHORT).show();
                             }else{
                                 relatedMovies = new String[lenArr];
 
@@ -160,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
                     quoteText.setVisibility(View.INVISIBLE);
                     loadingView.setVisibility(View.INVISIBLE);
                     similarMovieList.setVisibility(View.VISIBLE);
+                    similarText.setVisibility(View.VISIBLE);
                     findMovies.setEnabled(true);
                 }
             }
@@ -182,6 +197,8 @@ public class MainActivity extends AppCompatActivity {
         similarMovieList = findViewById(R.id.movie_list);
         loadingView = findViewById(R.id.loading_view);
         quoteText = findViewById(R.id.quote_text);
+        typesMenu = findViewById(R.id.type);
+        similarText = findViewById(R.id.text_similar_movies);
     }
 
     public static void hideKeyboard(Activity activity) {

@@ -1,0 +1,17 @@
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:ellipsize="end"
+    android:maxLines="1"
+    android:fontFamily="@font/amaranth"
+    android:textAppearance="?attr/textAppearanceSubtitle1"
+/>
+<!--<View-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="1dp"-->
+<!--    android:background="#7DFFFFFF"-->
+<!--    android:layout_alignParentBottom="true"-->
+<!--    android:focusable="false"-->
+<!--    android:focusableInTouchMode="false"/>-->
