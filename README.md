@@ -5,6 +5,4 @@ Implemented using <a href="https://square.github.io/retrofit/">Retrofit</a> Libr
 
 <div>
 <img src="https://github.com/aslam-ep/Similary/blob/master/Screenshots/similary-demo.gif" height="300"/>
-<img src="https://github.com/aslam-ep/Similary/blob/master/Screenshots/main.jpg" height="300"/>
-<img src="https://github.com/aslam-ep/Similary/blob/master/Screenshots/detail.jpg" height="300"/>
 </div>
